@@ -1,6 +1,6 @@
 # put your *.o targets here, make should handle the rest!
 
-SRCS = main.c
+SRCS = main.c flash.c
 LIBS_PATH = /Users/bostjan/Documents/n-ka/libs33
 
 # all the files will be generated with this name (main.elf, main.bin, main.hex, etc)
@@ -16,7 +16,6 @@ OBJCOPY=arm-none-eabi-objcopy
 
 CFLAGS  = -g -O0 -Wall -T$(LIBS_PATH)/stm32f030c6_flash.ld --specs=nosys.specs
 CFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m0 -mthumb-interwork
-#CFLAGS += -mfloat-abi=soft
 
 ###################################################
 
@@ -46,7 +45,7 @@ all: proj
 proj: 	$(PROJ_NAME).elf
 
 $(PROJ_NAME).elf: $(SRCS)
-	$(CC) $(CFLAGS) $^  -o $@ -L$(LIBS_PATH) -ltft -ltiming -lstm32f0 -lpins
+	$(CC) $(CFLAGS) $^  -o $@ -L$(LIBS_PATH) -ltft -lstm32f0 -ltiming -lpins
 	#$(CC) $(CFLAGS) $^ -o $@ -L../libs -lstm32f0
 	$(OBJCOPY) -O ihex $(PROJ_NAME).elf $(PROJ_NAME).hex
 	$(OBJCOPY) -O binary $(PROJ_NAME).elf $(PROJ_NAME).bin

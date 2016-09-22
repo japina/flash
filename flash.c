@@ -18,33 +18,14 @@ void send_byte(uint8_t cmd){
       SPI_ReceiveData8(SPI1);
 }
 
-uint8_t read_byte(void){
-  uint8_t result;
-  while (SPI_GetReceptionFIFOStatus(SPI1) != SPI_ReceptionFIFOStatus_Empty)
-      SPI_ReceiveData8(SPI1); 
-  SPI_BiDirectionalLineConfig(SPI1, SPI_Direction_Rx);
-  while( SPI1->SR & SPI_I2S_FLAG_BSY );
-  SPI1->CR1 |= SPI_Direction_Tx;  // Set Tx mode to stop Rx clock
-  result = SPI_ReceiveData8(SPI1);
-  return result;
+uint16_t send_and_read_byte(uint16_t cmd) {
+  while(SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE)==RESET);
+  SPI_I2S_SendData16(SPI1,cmd);
 
+  while(SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_RXNE)==RESET);
+  return SPI_I2S_ReceiveData16(SPI1);
 }
 
-uint8_t send_and_read_byte(uint8_t cmd)
-{
-    uint8_t result;
-    while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET); //wait buffer empty
-    SPI_SendData8(SPI1, cmd);
-    while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_BSY) == SET); //wait finish sending
-    // Read receiving FIFO until it is empty
-    while (SPI_GetReceptionFIFOStatus(SPI1) != SPI_ReceptionFIFOStatus_Empty)
-        SPI_ReceiveData8(SPI1);
-    SPI_BiDirectionalLineConfig(SPI1, SPI_Direction_Rx);
-    while( SPI1->SR & SPI_I2S_FLAG_BSY );
-    SPI1->CR1 |= SPI_Direction_Tx;  // Set Tx mode to stop Rx clock
-    result = SPI_ReceiveData8(SPI1);
-    return result;
-}
 
 #define SPIx                             SPI1
 #define SPIx_CLK                         RCC_APB2Periph_SPI1

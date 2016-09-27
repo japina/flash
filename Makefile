@@ -1,6 +1,6 @@
 # put your *.o targets here, make should handle the rest!
 
-SRCS = main.c flash.c
+SRCS = main.c flash.c spi.c
 LIBS_PATH = /Users/bostjan/Documents/n-ka/libs33
 
 # all the files will be generated with this name (main.elf, main.bin, main.hex, etc)

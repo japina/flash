@@ -10,7 +10,7 @@
 
 SPI_InitTypeDef  SPI_InitStructure;
 
-void SPI_Config(void);
+void SPI_Config();
 void start_comm(uint8_t nss_pin);
 void stop_comm(uint8_t nss_pin);
 void send_byte(uint8_t cmd);

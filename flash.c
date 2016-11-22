@@ -41,7 +41,7 @@ void chip_erase(void){
 
 void write_2_memory(uint32_t start_address, uint8_t* data_list, uint8_t size){
   uint8_t i;
-  uint8_t addr;
+  //uint8_t addr;
   // enable write + write data
   start_comm(A4);
   send_byte(WREN);
@@ -50,7 +50,7 @@ void write_2_memory(uint32_t start_address, uint8_t* data_list, uint8_t size){
   // write data to address
     start_comm(A4);
     send_byte(PP);
-    addr = start_address & 0x0f;
+    //addr = start_address & 0x0f;
     send_byte(start_address & 0x0f);
     send_byte((start_address & 0xf0)>>8);
     send_byte((start_address & 0xf00)>>16);
@@ -63,12 +63,12 @@ void write_2_memory(uint32_t start_address, uint8_t* data_list, uint8_t size){
 
 void read_memory(uint32_t start_address, uint8_t *data, uint8_t size){
   uint8_t i;
-  uint32_t addr;
+  //uint32_t addr;
   // start read
   start_comm(A4);
   //i=0;
   send_byte(READ);
-  addr = start_address & 0x0f;
+  //addr = start_address & 0x0f;
   send_byte(start_address & 0x0f);
   send_byte((start_address & 0xf0)>>8);
   send_byte((start_address & 0xf00)>>16);

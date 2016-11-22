@@ -2,7 +2,7 @@
 
 SPI_InitTypeDef  SPI_InitStructure;
 
-void SPI_Config(void)
+void SPI_Config()
 {
   SPI_InitTypeDef     SPI_InitStructure;
   GPIO_InitTypeDef    GPIO_InitStructure;
@@ -33,14 +33,23 @@ void SPI_Config(void)
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1, ENABLE);
 
 	SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+  	//SPI_InitStructure.SPI_Direction = direction;
 	SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
+  	//SPI_InitStructure.SPI_Mode = mode;
 	SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;
+  	//SPI_InitStructure.SPI_DataSize = datasize;
 	SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;
+  	//SPI_InitStructure.SPI_CPOL = cpol;
 	SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
+  	//SPI_InitStructure.SPI_CPHA = cpha;
 	SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
+  	//SPI_InitStructure.SPI_NSS = nss_pin;
 	SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_2;
+  	//SPI_InitStructure.SPI_BaudRatePrescaler = baudrate_prescaler;
 	SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
+  	//SPI_InitStructure.SPI_FirstBit = first_bit;
 	SPI_InitStructure.SPI_CRCPolynomial = SPI_CRCLength_8b;
+  	//SPI_InitStructure.SPI_CRCPolynomial = crc_poly;
 	/* Initialize SPI1 */
 	SPI_Init(SPI1, &SPI_InitStructure);
 	/* enable SPI1 */
